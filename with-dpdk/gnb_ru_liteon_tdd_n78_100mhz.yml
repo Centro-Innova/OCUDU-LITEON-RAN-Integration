@@ -54,14 +54,11 @@ ru_ofh:
   enable_dl_static_compr_hdr: true
   iq_scaling: 5.0
   cells:
-  - network_interface: 0000:ac:01.0 #   ens4f0np0 # 
-    ru_mac_addr: e8:c7:4f:25:83:dd
-    du_mac_addr: 0a:d8:5b:b8:cd:5c # 50:7c:6f:83:bf:5c du-mac-address 0ad85bb8cd5c #
+  - network_interface: 0000:ac:01.0 
+    ru_mac_addr: xx:xx:xx:xx:xx:xx
+    du_mac_addr: xx:xx:xx:xx:xx:xx
     vlan_tag_cp: 564
     vlan_tag_up: 564
-    #prach_port_id: [0,1,2,3] # mudança de 2t1r para 4t4r
-    #dl_port_id: [0,1,2,3]
-    #ul_port_id: [0,1,2,3]
     prach_port_id: [0] 
     dl_port_id: [0,1]
     ul_port_id: [0]
@@ -74,8 +71,8 @@ cell_cfg:
   plmn: "00101"
   tac: 1
   pci: 1
-  nof_antennas_dl: 2 #4 mudança de 2t1r para 4t4r
-  nof_antennas_ul: 1 #4
+  nof_antennas_dl: 2 
+  nof_antennas_ul: 1 
   prach:
     prach_config_index: 159
     prach_root_sequence_index: 1
