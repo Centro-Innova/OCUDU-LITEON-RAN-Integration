@@ -7,8 +7,37 @@ Accurate time and phase synchronization is a strict requirement for the operatio
 In this testbed, the GPS antenna is used as the time reference for the hardware clock of the Intel network interface card (NIC). The NIC operates as the **Grandmaster Clock**, using the Telecom Profile G.8275.1. The system clock is also synchronized to the NIC hardware clock to minimize clock drift during gNB operation.
 
 ---
+## LinuxPTP Installation
 
-## Directory Files and Their Purpose
+The synchronization configuration in this repository uses **LinuxPTP**. If LinuxPTP is not already installed, clone the official source repository and compile it before applying the configuration files.
+
+### Download and Build LinuxPTP
+
+Clone the LinuxPTP repository:
+
+```bash
+git clone git://git.code.sf.net/p/linuxptp/code linuxptp
+```
+
+Enter the source directory:
+
+```bash
+cd linuxptp/
+```
+
+Build LinuxPTP:
+
+```bash
+make
+```
+
+Install the compiled binaries:
+
+```bash
+sudo make install
+```
+---
+## Directory Files 
 
 ### Configuration Files (`/etc/linuxptp/`)
 
@@ -249,7 +278,117 @@ The complete synchronization architecture used in the testbed is:
                                      v
                               LITEON FlexFi
 ```
+## Validation
 
+After completing the synchronization configuration, the following steps can be used to verify that the services are running correctly and that the LITEON FlexFi O-RU can be accessed.
+
+### Step 1: Reload Systemd
+
+Reload the systemd configuration:
+
+```bash
+sudo systemctl daemon-reload
+```
+
+### Step 2: Start the Synchronization Services
+
+Start `ts2phc` and `ptp4l`:
+
+```bash
+sudo systemctl start ts2phc
+sudo systemctl start ptp4l
+```
+
+If `phc2sys` is configured as a systemd service, start it as well:
+
+```bash
+sudo systemctl start phc2sys
+```
+
+### Step 3: Verify `ts2phc`
+
+Check the service status:
+
+```bash
+sudo systemctl status ts2phc
+```
+
+To monitor the logs in real time:
+
+```bash
+sudo journalctl -u ts2phc -f
+```
+
+The service should be running without errors and receiving the timing information from the GPS source.
+
+### Step 4: Verify `ptp4l`
+
+Check the service status:
+
+```bash
+sudo systemctl status ptp4l
+```
+
+Monitor the PTP logs:
+
+```bash
+sudo journalctl -u ptp4l -f
+```
+
+The PTP interface should successfully initialize and operate as the configured Grandmaster.
+
+### Step 5: Verify `phc2sys`
+
+Monitor the system clock synchronization:
+
+```bash
+sudo journalctl -u phc2sys -f
+```
+
+The offset between the NIC hardware clock and the system clock should converge toward zero.
+
+---
+
+## Accessing the LITEON FlexFi O-RU
+
+The LITEON FlexFi O-RU can be accessed through its serial console.
+
+First, install `minicom`:
+
+```bash
+sudo apt update
+sudo apt install minicom
+```
+
+Identify the USB serial device connected to the O-RU. In this testbed, the device is:
+
+```text
+/dev/ttyUSB0
+```
+
+The device name may be different depending on which USB port is used and how the operating system enumerates the device.
+
+Start `minicom` with the following parameters:
+
+```bash
+sudo minicom -D /dev/ttyUSB0 -b 115200
+```
+
+After connecting, the LITEON FlexFi console should be available.
+
+The expected console output and access procedure are shown below:
+
+> Sync status/state: SYNCHRONIZED/SYNCHRONIZING
+
+If the serial device is not `/dev/ttyUSB0`, check the available devices with:
+
+```bash
+ls /dev/ttyUSB*
+```
+
+Then replace `/dev/ttyUSB0` in the `minicom` command with the corresponding device.
+
+---
 This synchronization configuration is shared by both testbed configurations:
 
 - [Without DPDK](../without-dpdk/)
