@@ -8,7 +8,7 @@ This configuration uses the standard Linux networking stack and serves as the ba
 >
 > - [Open5GS Core](../core/)
 > - [Synchronization (PTP/GPS)](../synchronization/)
-> - [Common Configuration](../config/)
+> - [Common Configuration](../configs/)
 >
 > These configurations are shared between the DPDK and non-DPDK setups.
 
@@ -107,7 +107,7 @@ The following configurations must be completed:
 
 For the CPU configuration, follow the procedure documented in:
 
-[Common Configuration](../config/)
+[Common Configuration](../configs/)
 
 ---
 
@@ -136,7 +136,7 @@ cd ~/ocudu/build/apps/gnb
 Start the gNB:
 
 ```bash
-sudo taskset -c 0-15 ./gnb \ -c ../../../configs/gnb_ru_liteon_tdd_n78_100mhz.yml 
+sudo taskset -c 0-15 ./gnb -c ../../../configs/gnb_ru_liteon_tdd_n78_100mhz.yml 
 ```
 
 The CPU range used by `taskset` must be adapted to the CPU configuration of the server.
