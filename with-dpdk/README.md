@@ -8,7 +8,7 @@ This setup is based on the baseline OCUDU testbed configuration, with the additi
 >
 > - [Open5GS Core](../core/)
 > - [Synchronization (PTP/GPS)](../synchronization/)
-> - [System and Hardware Configuration](../config/)
+> - [System and Hardware Configuration](../configs/)
 >
 > The CPU isolation, hugepages, realtime kernel, common network configuration, Open5GS Core, and PTP/GPS synchronization are shared between the DPDK and non-DPDK deployments.
 
