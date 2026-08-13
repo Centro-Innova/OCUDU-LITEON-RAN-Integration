@@ -79,14 +79,6 @@ cell_cfg:
     zero_correlation_zone: 0
     prach_frequency_start: 12
 
-#e2: 
-#  enable_du_e2: true
-#  e2sm_kpm_enabled: true 
-#  e2sm_rc_enabled: true 
-#  addr: 127.0.0.1 
-#  port: 32222
-#  bind_addr: 127.0.0.1
-
 log:
   filename: /tmp/gnb.log
   all_level: info
