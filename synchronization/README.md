@@ -186,11 +186,6 @@ To monitor the service logs in real time:
 ```bash
 sudo journalctl -u ts2phc.service -f
 ```
-
-The logs should indicate that timing information is being received from the GPS source and applied to the NIC hardware clock.
-
-> `[INSERT SCREENSHOT HERE - ts2phc]`
-
 ---
 
 ### 2. PTP Grandmaster (`ptp4l-gm`)
@@ -218,9 +213,6 @@ The port should report the following state:
 ```text
 MASTER
 ```
-
-> `[INSERT SCREENSHOT HERE - ptp4l-gm]`
-
 ---
 
 ### 3. System Clock Synchronization (`phc2sys`)
@@ -238,8 +230,6 @@ sudo journalctl -u phc2sys.service -f
 ```
 
 The `phc2sys` logs should show the offset between the NIC hardware clock and the system clock converging toward zero.
-
-> `[INSERT SCREENSHOT HERE - phc2sys]`
 
 ---
 
