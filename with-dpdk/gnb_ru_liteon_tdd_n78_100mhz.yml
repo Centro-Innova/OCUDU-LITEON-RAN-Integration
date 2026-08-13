@@ -1,0 +1,102 @@
+# SPDX-FileCopyrightText: Copyright (C) 2021-2026 Software Radio Systems Limited
+# SPDX-License-Identifier: BSD-3-Clause-Open-MPI
+
+# Example config for LiteOn RU in TDD mode, band n78, 100 MHz bandwidth.
+# The main section of intereset is ru_ofh, which contains the configuration of the RU OFH application.
+# Should the config not start as expected, please refer to the documentation for more details on the configuration options:
+# https://docs.ocudu.org/user_manual/config_reference/
+
+cu_cp:
+  amf:
+    addr: 127.0.0.5
+    bind_addr: 127.0.0.1
+    supported_tracking_areas:
+      - tac: 1                        
+        plmn_list:
+          - plmn: "00101"
+            tai_slice_support_list:
+              - sst: 1    
+
+hal:
+    eal_args: "--lcores=(2-15)@(2-15) --socket-mem=2048 -a 0000:ac:01.0"
+
+expert_execution:
+   affinities:
+     main_pool_cpus: "0-15"
+
+     ofh:
+       timing_cpu: "13-14"
+       txrx_cpus: [15]
+
+   threads:
+    ofh:
+      enable_busy_waiting: true
+
+ru_ofh:
+  t1a_max_cp_dl: 350
+  t1a_min_cp_dl: 200
+  t1a_max_cp_ul: 350
+  t1a_min_cp_ul: 200
+  t1a_max_up: 300
+  t1a_min_up: 0
+  ta4_max: 300
+  ta4_min: 0
+  is_prach_cp_enabled: true
+  ignore_ecpri_payload_size: false
+  ignore_ecpri_seq_id: true
+  compr_method_ul: bfp
+  compr_bitwidth_ul: 9
+  compr_method_dl: bfp
+  compr_bitwidth_dl: 9
+  compr_method_prach: bfp
+  compr_bitwidth_prach: 9
+  enable_ul_static_compr_hdr: true
+  enable_dl_static_compr_hdr: true
+  iq_scaling: 5.0
+  cells:
+  - network_interface: 0000:ac:01.0 #   ens4f0np0 # 
+    ru_mac_addr: e8:c7:4f:25:83:dd
+    du_mac_addr: 0a:d8:5b:b8:cd:5c # 50:7c:6f:83:bf:5c du-mac-address 0ad85bb8cd5c #
+    vlan_tag_cp: 564
+    vlan_tag_up: 564
+    #prach_port_id: [0,1,2,3] # mudança de 2t1r para 4t4r
+    #dl_port_id: [0,1,2,3]
+    #ul_port_id: [0,1,2,3]
+    prach_port_id: [0] 
+    dl_port_id: [0,1]
+    ul_port_id: [0]
+
+cell_cfg:
+  dl_arfcn: 649980
+  band: 78
+  channel_bandwidth_MHz: 100
+  common_scs: 30
+  plmn: "00101"
+  tac: 1
+  pci: 1
+  nof_antennas_dl: 2 #4 mudança de 2t1r para 4t4r
+  nof_antennas_ul: 1 #4
+  prach:
+    prach_config_index: 159
+    prach_root_sequence_index: 1
+    zero_correlation_zone: 0
+    prach_frequency_start: 12
+
+#e2: 
+#  enable_du_e2: true
+#  e2sm_kpm_enabled: true 
+#  e2sm_rc_enabled: true 
+#  addr: 127.0.0.1 
+#  port: 32222
+#  bind_addr: 127.0.0.1
+
+log:
+  filename: /tmp/gnb.log
+  all_level: info
+
+pcap:
+  mac_enable: false
+  mac_filename: /tmp/gnb_mac.pcap
+  ngap_enable: false
+  ngap_filename: /tmp/gnb_ngap.pcap
+
