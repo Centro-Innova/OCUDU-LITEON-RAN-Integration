@@ -191,6 +191,27 @@ The testbed is based on:
 - **DPDK** for the optimized setup
 
 ---
+## Adding UEs and Subscriber Configuration
+
+After configuring the Open5GS Core, subscriber information must be added to the Open5GS database for each UE/SIM that will connect to the network.
+
+The subscriber configuration includes information such as:
+
+- IMSI
+- Authentication keys
+- OP/OPc
+- AMF
+- APN/DNN
+- Subscriber profile
+
+For the detailed procedure to register subscribers and configure the required parameters, refer to the official Open5GS documentation and the OCUDU COTS UE tutorial.
+
+The Open5GS documentation provides information about registering subscriber data in the Core, while the OCUDU tutorial provides a detailed procedure for configuring a commercial UE, including SIM and APN configuration. :contentReference[oaicite:0]{index=0}
+
+### References
+
+- [Open5GS Quickstart](https://open5gs.org/open5gs/docs/guide/01-quickstart/)
+- [OCUDU COTS UE Tutorial](https://docs.ocudu.org/tutorials/cots_ue/)
 
 # Documentation
 
