@@ -60,7 +60,7 @@ OCUDU requires a Linux system with realtime kernel support.
 
 The CPU, hugepages, and realtime configuration used in this testbed are documented in:
 
-[System and Hardware Configuration](../config/)
+[System and Hardware Configuration](../configs/)
 
 ---
 
@@ -227,7 +227,7 @@ The CPU configuration is shared with the non-DPDK deployment.
 
 Before starting the gNB, follow the CPU and hugepages configuration documented in:
 
-[System and Hardware Configuration](../config/)
+[System and Hardware Configuration](../configs/)
 
 The CPU affinity used when starting the gNB must correspond to the CPUs configured for OCUDU.
 
