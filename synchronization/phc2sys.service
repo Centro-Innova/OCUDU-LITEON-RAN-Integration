@@ -1,0 +1,22 @@
+[Unit]
+Description=Synchronize Linux system clock from E810 PHC
+Requires=ptp4l-gm.service
+After=ptp4l-gm.service
+
+[Service]
+Type=simple
+ExecStart=/usr/sbin/phc2sys -s ens4f0np0 -c CLOCK_REALTIME -R 8 -f /etc/linuxptp/ptp4l.cfg
+Restart=on-failure
+RestartSec=2
+CPUAffinity=
+CPUAffinity=17
+AllowedCPUs=
+AllowedCPUs=17
+LimitMEMLOCK=infinity
+LimitRTPRIO=99
+CPUSchedulingPolicy=fifo
+CPUSchedulingPriority=70
+Nice=-20
+
+[Install]
+WantedBy=multi-user.target

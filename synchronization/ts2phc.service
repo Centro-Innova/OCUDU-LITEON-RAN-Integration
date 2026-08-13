@@ -1,0 +1,13 @@
+[Unit]
+Description=Sincroniza PHC da E810 via GNSS (ts2phc)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/sbin/ts2phc -f /etc/linuxptp/ts2phc.conf -s nmea -c ens4f0np0 -m
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

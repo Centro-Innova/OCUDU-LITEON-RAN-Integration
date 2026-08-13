@@ -1,0 +1,30 @@
+[Unit]
+Description=LinuxPTP Grandmaster on ens4f0np0
+Wants=network-online.target
+After=network-online.target
+BindsTo=sys-subsystem-net-devices-ens4f0np0.device
+After=sys-subsystem-net-devices-ens4f0np0.device
+
+[Service]
+Type=simple
+RuntimeDirectory=ptp
+RuntimeDirectoryMode=0755
+
+ExecStart=/usr/sbin/ptp4l -f /etc/linuxptp/ptp4l.cfg -m
+
+Restart=on-failure
+RestartSec=2
+
+CPUAffinity=
+CPUAffinity=16
+AllowedCPUs=
+AllowedCPUs=16
+
+LimitRTPRIO=99
+LimitMEMLOCK=infinity
+CPUSchedulingPolicy=fifo
+CPUSchedulingPriority=75
+Nice=-20
+
+[Install]
+WantedBy=multi-user.target
